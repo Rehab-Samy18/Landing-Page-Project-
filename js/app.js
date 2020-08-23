@@ -20,7 +20,6 @@
 const sectionsVar = document.querySelectorAll('section'); //I've used .querySelectorAll as It's not one section ..
 const navFactor = document.getElementById('navbar__list'); //Storing my unordered list inside a global variable called navFactor
 
-
 /**
  * End Global Variables
  * Start Helper Functions
@@ -37,24 +36,38 @@ const navFactor = document.getElementById('navbar__list'); //Storing my unordere
 
 // build the nav
   function navBuilderFun () {  
-     let navContainer = ''; //Empty string and I'm going to store everything inside it.
-     let nav = '';
-     sectionsVar.forEach(section => {   //looping over all sections
-         const secId = section.id;  //Returns the value of element's id content attribute.
-         const dataNav = section.dataset.nav; //HTMLElement.dataset: DOMStringMap
+     
+     sectionsVar.forEach(el => {
+    const navlistElement = `<li><a class='menu__link' data-link=${el.id}>${el.dataset.nav}</li>`
+    navFactor.insertAdjacentHTML('beforeend', navlistElement)
+  })
+        
 
-         navContainer += `<li><a class="menu__link" href="#${secId}">${dataNav}</a></li>`;
-           /* I got menu__link class from HTML file and I've increamented the empty string with sections 
-           to form a list of sections */
-     });
-     navFactor.innerHTML = navContainer; //adding elements to the navigation
-  }
-
-  navBuilderFun();   //Calling the navigation function
-
+     }   
   
-// Add class 'active' to section when near top of viewport
 
+  navBuilderFun();   //Calling the navigation function  */
+
+
+  // Scroll to anchor ID using scrollTO event
+  function scrolling(){
+  navFactor.addEventListener('click', e => {
+    e.preventDefault();
+    /** If invoked when the cancelable attribute value is true, 
+     * and while executing a listener for the event with passive set to false, 
+     * signals to the operation that caused event to be dispatched that it needs to be canceled. */
+
+    const parent = e.target.hasAttribute('data-link') //Igot data-link attribute from html file
+   ? e.target  //Returns the object to which event is dispatched (its target).
+   : e.target.parentElement;
+    const scrollToElement = document.getElementById(parent.dataset.link);
+    scrollToElement.scrollIntoView({behavior: 'smooth'});
+  })   
+}
+  scrolling();
+
+
+// Add class 'active' to section when near top of viewport
 
 function sizeAndPosition (section)  {
     return Math.floor(section.getBoundingClientRect().top); /* This function returns the size and the position 
@@ -89,7 +102,6 @@ function activeSection() {
 
 window.addEventListener('scroll',activeSection);  //adding section activation when scroll event happens
 
-// Scroll to anchor ID using scrollTO event
 
 
 /**
