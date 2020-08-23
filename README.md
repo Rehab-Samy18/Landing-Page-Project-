@@ -19,3 +19,11 @@ They are (sectionActivationAddition) and (sectionAcivationRemove) ..
 -And the last step , I've implemented the section activation function using the last three functions 
 and i've used (addEventListener) method that adds section activation when scroll event happens
 
+5)After editing : I've added function (scrolling) that Scrolls to anchor ID using scrollTO event
+I've used three famous function :
+-addEventListener('click',.....) , which means when we click on the navigation menu , there is something has to happen
+-e.preventDefault : which means If it's invoked when the cancelable attribute value is true, 
+     * and while executing a listener for the event with passive set to false, 
+     * signals to the operation that caused event to be dispatched that it needs to be canceled. 
+-scrollIntoView: which scrolls to the appropriate section.
+
